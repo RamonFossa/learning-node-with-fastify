@@ -6,9 +6,11 @@ const PORT = 3333
 const app = fastify()
 
 app.get('/testdb', async () => {
-  const tables = await knex('sqlite_schema').select('*')
+  const transaction = await knex('transactions')
+    .where('amount', 1000)
+    .select('*')
 
-  return tables
+  return transaction
 })
 
 app
